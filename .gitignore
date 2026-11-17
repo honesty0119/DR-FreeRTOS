@@ -1,0 +1,33 @@
+# Build outputs
+/OBJ/
+*.o
+*.obj
+*.axf
+*.hex
+*.bin
+*.map
+*.lst
+*.crf
+*.d
+*.dep
+*.lnp
+*.build_log.htm
+
+# Backups and local logs
+/.encoding-backup/
+/.vscode/backups/
+*.orig
+*.bak
+*.log
+*.tmp
+
+# Personal IDE and debug state
+*.uvguix.*
+JLinkSettings.ini
+JLinkLog.txt
+
+# Local credentials
+.env
+.env.*
+!.env.example
+.aws/

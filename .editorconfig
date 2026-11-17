@@ -1,0 +1,4 @@
+root = true
+
+[*.{c,h,s,inc,txt,readme,orig,json,uvprojx,uvoptx}]
+charset = utf-8

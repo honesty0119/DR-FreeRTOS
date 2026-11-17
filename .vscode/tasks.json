@@ -1,0 +1,86 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Keil: Compile Current C File",
+            "type": "process",
+            "command": "powershell.exe",
+            "args": [
+                "-NoProfile", "-ExecutionPolicy", "Bypass",
+                "-File", "${workspaceFolder}/.vscode/keil-compile-file.ps1",
+                "-SourceFile", "${file}",
+                "-Uv4Path", "${config:KeilAssistant.MDK.Uv4Path}"
+            ],
+            "options": { "cwd": "${workspaceFolder}/USER" },
+            "group": "build",
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.+)\\((\\d+),(\\d+)\\)\\s*:\\s*(warning|error)\\s+#([\\w-]+):\\s*(.*)$",
+                    "file": 1, "line": 2, "column": 3,
+                    "severity": 4, "code": 5, "message": 6
+                }
+            },
+            "presentation": { "reveal": "always", "panel": "shared", "clear": true }
+        },
+        {
+            "label": "Keil: Build FreeRTOS",
+            "type": "process",
+            "command": "powershell.exe",
+            "args": [
+                "-NoProfile", "-ExecutionPolicy", "Bypass",
+                "-File", "${workspaceFolder}/.vscode/keil-build.ps1",
+                "-Action", "Build",
+                "-Uv4Path", "${config:KeilAssistant.MDK.Uv4Path}"
+            ],
+            "options": { "cwd": "${workspaceFolder}/USER" },
+            "group": { "kind": "build", "isDefault": true },
+            "problemMatcher": [
+                {
+                    "base": "$armcc",
+                    "fileLocation": ["relative", "${workspaceFolder}/USER"]
+                },
+                {
+                    "owner": "cpp",
+                    "fileLocation": ["relative", "${workspaceFolder}/USER"],
+                    "pattern": {
+                        "regexp": "^(.+): (error|warning): (L[0-9]+[A-Z]): (.+)$",
+                        "kind": "file",
+                        "file": 1, "severity": 2, "code": 3, "message": 4
+                    }
+                }
+            ],
+            "presentation": { "reveal": "always", "panel": "shared", "clear": true }
+        },
+        {
+            "label": "Keil: Rebuild FreeRTOS",
+            "type": "process",
+            "command": "powershell.exe",
+            "args": [
+                "-NoProfile", "-ExecutionPolicy", "Bypass",
+                "-File", "${workspaceFolder}/.vscode/keil-build.ps1",
+                "-Action", "Rebuild",
+                "-Uv4Path", "${config:KeilAssistant.MDK.Uv4Path}"
+            ],
+            "options": { "cwd": "${workspaceFolder}/USER" },
+            "group": "build",
+            "problemMatcher": [
+                {
+                    "base": "$armcc",
+                    "fileLocation": ["relative", "${workspaceFolder}/USER"]
+                },
+                {
+                    "owner": "cpp",
+                    "fileLocation": ["relative", "${workspaceFolder}/USER"],
+                    "pattern": {
+                        "regexp": "^(.+): (error|warning): (L[0-9]+[A-Z]): (.+)$",
+                        "kind": "file",
+                        "file": 1, "severity": 2, "code": 3, "message": 4
+                    }
+                }
+            ],
+            "presentation": { "reveal": "always", "panel": "shared", "clear": true }
+        }
+    ]
+}
